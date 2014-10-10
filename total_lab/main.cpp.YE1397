@@ -1,0 +1,88 @@
+#include <iostream>
+#include <stdio.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <fcntl.h>
+#include <unistd.h>
+
+using namespace std;
+
+bool isSeparator(char& symbol);
+bool isString(char& symbol);
+char* getFileName();
+void getFile(const char* name);
+
+int main()
+{
+    //char* strin;
+   // strin = getFileName();
+    //cout << strin << endl;
+    //ssize_t* fp = getFile(strin);
+    getFile("/home/ognelis/cisco_system_programming/total_lab/god.txt");
+    return 0;
+}
+
+bool isSeparator(char& symbol)
+{
+    switch(symbol)
+    {
+        case ' ' :
+        case '\n':
+        case '\t':
+            return (true);
+        default:
+            return (false);
+            break;
+    }
+}
+
+bool isString(char& symbol)
+{
+    if (symbol == '\n')
+    {
+        return (true);
+    }
+    else
+    {
+        return (false);
+    }
+}
+
+char* getFileName()
+{
+    char* name = new char [256];
+    char* buffer = name;
+    int symbol;
+    while ((symbol = getchar()) != EOF  )
+    {
+        *buffer = symbol;
+        buffer++;
+    }
+    *buffer = '\0';
+    return (name);
+}
+
+// TODO: доделать
+void getFile(const char* name)
+{
+    FILE *fp;
+    /*ptrdiff_t  file;
+    if (file=open(name,O_RDONLY) == -1)
+       cout <<"Ошибка открытия файла.\n" << endl;
+    else
+       cout <<"открыт файл.\n" << endl;
+
+    ssize_t readedBytes;
+    char ch;
+
+    readedBytes = read(file, &ch, 1);
+       cout<<ch<<endl;*/
+     fp=fopen(name,"r");
+     char *str;
+     while (fgets(str,256,fp) != 0)
+     {
+         printf("%s\n",str);
+     }
+     fclose(fp);
+
+}
